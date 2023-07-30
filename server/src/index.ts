@@ -16,7 +16,7 @@ const port = 5001 || process.env.PORT
 app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
-app.use('/api/auth', authRoutes)
+app.use('/remotehive/api/auth', authRoutes)
 
 
 const connect = () =>  mongoose
