@@ -6,7 +6,8 @@
   "type": "module",
   "scripts": {
     "start:ts": "tsc -w",
-    "start:js": "nodemon dist/index.js",
+    "start:auth": "nodemon dist/Auth/index.js",
+    "start:kanban" : "nodemon dist/Kanban/index.js",
     "start": "concurrently npm:start:*"
   },
   "keywords": [],

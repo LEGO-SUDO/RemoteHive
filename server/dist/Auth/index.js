@@ -25,6 +25,6 @@ const connect = () => mongoose
 });
 app.listen(port, () => {
     connect();
-    console.log(`App is listening on PORT: ${port}!`);
+    console.log(`Auth service is listening on PORT: ${port}!`);
 });
 //# sourceMappingURL=index.js.map

@@ -1,6 +1,6 @@
 'use client'
 import React, {use, useEffect, useState} from 'react'
-import axios from 'axios'
+import axios,{AxiosError} from 'axios'
 import { error } from 'console'
 import styles from '../../styles/default.module.css'
 
@@ -32,6 +32,10 @@ const initialsigninFormData: signinFormData = {
   password: '',
 }
 
+const initialbackendresponse = {
+  response: '',
+  status: 0,
+}
 
 const signin = () => {
   const [loginState, setLoginState] = useState(false)
@@ -41,6 +45,7 @@ const signin = () => {
   const [signupFormErrors, setSignupFormErrors] = useState(initialsignupFormData)
   const [isSignupSubmit,setIsSignupSubmit] = useState(false)
   const [isSigninSubmit,setIsSigninSubmit] = useState(false)
+  const [backendResponse, setBackendResponse] = useState(initialbackendresponse)
 
   const handleSignUp = (e:React.MouseEvent<HTMLButtonElement>,signUpForm:signupFormData) =>{
     e.preventDefault()
@@ -109,6 +114,37 @@ const signin = () => {
     setIsSignupSubmit(true)
   }
 }
+   
+  const signupsubmit = async(signUpForm:signupFormData) =>{
+      const config = {
+    headers: {
+      'Content-Type': 'application/json',
+    },
+  };
+  try{
+  const res = await axios.post('http://localhost:5001/remotehive/api/auth/signup',JSON.stringify(signUpForm),config)
+    setBackendResponse({response:res.data, status:res.status})
+    setTimeout(()=>{setLoginState(true)},3000)
+  }catch(error){
+    setIsSignupSubmit(false)
+    if (axios.isAxiosError(error)) {
+      const axiosError = error as AxiosError; // Type assertion to AxiosError
+
+      // Check if it's a 409 Conflict error
+      if (axiosError.response?.status === 409) {
+        setBackendResponse({response:axiosError.response?.data as string,status:409})
+      } else {
+        // Handle other errors (e.g., server error)
+        console.error("Error occurred:", axiosError.message);
+      }
+    } else {
+      // Handle other non-Axios errors
+      console.error("Error occurred:", (error as Error).message);
+    }
+  }
+  
+}
+  
   useEffect(()=>{
     function areAllValuesEmpty(obj: { [key: string]: any }): boolean {
       const values = Object.values(obj);
@@ -116,9 +152,14 @@ const signin = () => {
     }
     if(areAllValuesEmpty(signupFormErrors) && isSignupSubmit){
       console.log("form submitted")
+      signupsubmit(signUpForm)
+      
     }
   },[isSignupSubmit])
 
+  useEffect(()=>{
+    console.log(backendResponse)
+  },[backendResponse])
 
 
   return (
@@ -169,6 +210,7 @@ const signin = () => {
           onChange={(e)=>{setSignUpForm(prevSignUpForm => ({...prevSignUpForm, confirmPassword: e.target.value }))}}/>
            <p className={`${styles.formerrorfont}`}>{signupFormErrors.confirmPassword}</p>
         </label>
+        <p className={`${backendResponse.status===409?"text-red-500":backendResponse.status===200?"text-green-500":"text-white"}`}>{backendResponse.response}</p>
         <div className='flex flex-row justify-between items-end'>
           <div onClick={()=>{setLoginState(true) 
           console.log(loginState)}} className='cursor-pointer'>Already have an account?</div>
