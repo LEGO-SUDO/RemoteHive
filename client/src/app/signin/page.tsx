@@ -225,14 +225,14 @@ const signin = () => {
           <input type='text' name='username' 
           className='border-[1px] rounded-[8px] px-[8px]' 
           value={signInForm.username}
-          onChange={(e)=>{setSignInForm(prevSignUpForm => ({...prevSignUpForm, username: e.target.value }))}}/>
+          onChange={(e)=>{setSignInForm(prev => ({...prev, username: e.target.value }))}}/>
         </label>
         
         <label className='flex flex-col my-[40px]'>Password
           <input type='text' name='password' 
           className='border-[1px] rounded-[8px] px-[8px]' 
           value={signInForm.password}
-          onChange={(e)=>{setSignInForm(prevSignUpForm => ({...prevSignUpForm, password: e.target.value }))}}/>
+          onChange={(e)=>{setSignInForm(prev => ({...prev, password: e.target.value }))}}/>
         </label>
         <div className='flex flex-col items-center mt-[40px]'>
           
