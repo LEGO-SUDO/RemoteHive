@@ -4,6 +4,7 @@ import dotenv from 'dotenv'
 import bodyParser from 'body-parser'
 import mongoose, { ConnectOptions } from "mongoose"
 import authRoutes from './routes/auth.js'
+import teamRoutes from './routes/team.js'
 import cookieParser from 'cookie-parser'
 
 
@@ -17,6 +18,7 @@ app.use(cors())
 app.use(bodyParser.json())
 app.use(cookieParser())
 app.use('/remotehive/api/auth', authRoutes)
+app.use('/remotehive/api/team', teamRoutes)
 
 
 const connect = () =>  mongoose
