@@ -4,6 +4,7 @@ import dotenv from 'dotenv';
 import bodyParser from 'body-parser';
 import mongoose from "mongoose";
 import authRoutes from './routes/auth.js';
+import teamRoutes from './routes/team.js';
 import cookieParser from 'cookie-parser';
 dotenv.config();
 const app = express();
@@ -12,6 +13,7 @@ app.use(cors());
 app.use(bodyParser.json());
 app.use(cookieParser());
 app.use('/remotehive/api/auth', authRoutes);
+app.use('/remotehive/api/team', teamRoutes);
 const connect = () => mongoose
     .connect(process.env.MONGO_URI, {
     useNewUrlParser: true,
