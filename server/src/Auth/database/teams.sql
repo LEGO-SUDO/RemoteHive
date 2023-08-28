@@ -1,0 +1,11 @@
+-- CREATE TABLE public.team_members (
+--     membership_id SERIAL PRIMARY KEY,
+--     team_id INTEGER NOT NULL ,
+--     user_id INTEGER NOT NULL ,
+--     is_admin BOOLEAN DEFAULT false,
+--     roles VARCHAR(50) NOT NULL,
+--     joined_at TIMESTAMP DEFAULT NOW(),
+--     UNIQUE (team_id, user_id)  -- Ensures each user can be a member of a team only once
+--     FOREIGN KEY (team_id) REFERENCES teams(team_id) ON DELETE CASCADE,
+--     FOREIGN KEY (user_id) REFERENCES users(user_id) ON DELETE CASCADE
+-- );
