@@ -10,10 +10,10 @@ router.post('/newteam', createTeam)
 router.put('/addmember/:team_id', addMember )
 
 // Remove members from team
-router.put('/removemember/:team_id', removeMember)
+router.delete('/removemember/:team_id', removeMember)
 
 // Manage roles
-router.put('/roles/:id', updateRole)
+router.put('/roles/:team_id', updateRole)
 
 // Delete team
 router.delete('/delete/:team_id', deleteTeam)

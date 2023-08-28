@@ -1,7 +1,7 @@
 -- CREATE DATABASE remotehive;
 
 -- CREATE TABLE users (
---     id SERIAL PRIMARY KEY,
+--     user_id SERIAL PRIMARY KEY,
 --     firstname VARCHAR(30),
 --     lastname VARCHAR(30),
 --     username VARCHAR(30) NOT NULL UNIQUE,
